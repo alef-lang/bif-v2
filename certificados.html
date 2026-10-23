@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+  <script src="./tema-bif.js?v=20261023-light9"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Gestão local de certificados digitais A1, preparada para futura integração com Firebase." />
@@ -422,6 +423,26 @@
       .modal-footer .btn { flex: 1; }
     }
   </style>
+  <link rel="stylesheet" href="./tema-bif.css?v=20261023-light9"/>
+  <style id="bif-light-tokens">
+    /* Tema claro desta página: restaura os tokens claros (o tema escuro segue o :root original). */
+html[data-bif-theme="light"]:root {
+      --navy-950:#172a42 !important; --navy-900:#ffffff !important; --navy-800:#ffffff !important; --navy-700:#f3f3ef !important;
+      --gold-600:#86661c !important; --gold-500:#b08a35 !important; --gold-200:#86661c !important;
+      --cream-50:#f5f5f2 !important; --cream-100:#f3f3ef !important; --cream-200:#e4e3dd !important;
+      --white:#ffffff !important; --ink:#172a42 !important; --muted:#627084 !important; --border:#e4e3dd !important;
+      --success:#0f7a4a !important; --success-bg:#e8f5ee !important; --warning:#8a5a00 !important; --warning-bg:#fff5df !important;
+      --danger:#b4232a !important; --danger-bg:#fdeeee !important; --info:#1c5d9f !important; --info-bg:#eaf2fb !important;
+    }
+    html[data-bif-theme="light"] body { background: #f5f5f2 !important; background-image: linear-gradient(180deg,#f8f8f6 0,#f5f5f2 320px) !important; }
+    html[data-bif-theme="light"] .topbar { background: rgba(255,255,255,.96) !important; }
+    html[data-bif-theme="light"] .brand-mark { background: linear-gradient(145deg,#1d3557,#2a4a73) !important; color:#fff !important; }
+    html[data-bif-theme="light"] .hero-copy { background: linear-gradient(135deg,#172a42,#1d3557) !important; color:#fff !important; border:0 !important; }
+    html[data-bif-theme="light"] .hero-copy :where(h1,h2,h3,p,span,strong) { color: inherit !important; -webkit-text-fill-color: currentColor !important; }
+    html[data-bif-theme="light"] .hero-copy p { color: rgba(255,255,255,.82) !important; }
+    html[data-bif-theme="light"] .btn-navy { background:#1d3557 !important; color:#fff !important; border-color:#1d3557 !important; }
+    html[data-bif-theme="light"] .btn-light { background:#fff !important; color:#34445a !important; border-color:#d6d4cc !important; }
+  </style>
 </head>
 <body>
   <div id="loginGate" style="position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:rgba(15,23,42,.55);backdrop-filter:blur(2px);">
@@ -465,7 +486,7 @@
 
     <main class="main">
       <section class="hero" aria-labelledby="pageTitle">
-        <div class="hero-copy">
+        <div class="hero-copy" data-keep-dark>
           <span class="eyebrow">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3 4 7v5c0 5 3.4 8.6 8 10 4.6-1.4 8-5 8-10V7l-8-4Z"/></svg>
             Gestão e vencimentos
