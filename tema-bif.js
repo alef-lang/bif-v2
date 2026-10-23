@@ -25,7 +25,7 @@
       meta.setAttribute('name', 'theme-color');
       document.head.appendChild(meta);
     }
-    meta.setAttribute('content', theme === 'light' ? '#f4f1e8' : '#0d1b2a');
+    meta.setAttribute('content', theme === 'light' ? '#f3f6fa' : '#0d1b2a');
   }
 
   function apply(theme, persist) {
