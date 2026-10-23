@@ -339,6 +339,24 @@
     .btn-backup.loading .backup-icon { display: none; }
     @keyframes bif-spin { to { transform: rotate(360deg); } }
 
+
+    /* Configurações e zona de perigo */
+    .btn-settings { border:1px solid var(--border,rgba(150,150,150,.35)); border-radius:999px; padding:7px 13px; background:transparent; color:inherit; cursor:pointer; font:inherit; }
+    .btn-settings:hover { border-color:#ad8b55; }
+    .settings-overlay { position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,.7); display:none; align-items:center; justify-content:center; padding:20px; }
+    .settings-overlay.open { display:flex; }
+    .settings-panel { width:min(100%,540px); max-height:90vh; overflow:auto; background:var(--surface,#18212b); color:var(--text,#eee); padding:26px; border-radius:16px; border:1px solid rgba(180,180,180,.3); box-shadow:0 16px 70px #0008; }
+    .settings-panel h2 { margin:0 0 12px; font-size:1.4rem; }
+    .settings-panel p { line-height:1.6; }
+    .danger-zone { border:1px solid #e05f5f; border-radius:12px; padding:18px; margin-top:20px; }
+    .danger-zone h3 { color:#f18b8b; margin:0 0 8px; }
+    .danger-zone label { display:block; margin:13px 0 5px; }
+    .danger-zone input { width:100%; box-sizing:border-box; padding:11px; border-radius:7px; border:1px solid #888; background:var(--bg,#111821); color:inherit; font:inherit; }
+    .danger-zone button { background:#a52626; color:white; border:0; padding:11px 15px; border-radius:8px; font-weight:700; cursor:pointer; }
+    .danger-zone button:disabled { opacity:.5; cursor:not-allowed; }
+    .settings-close { float:right; color:inherit; border:0; background:none; font-size:1.4rem; cursor:pointer; }
+    .reset-status { margin-top:12px; font-size:.9rem; white-space:pre-wrap; }
+
     .main {
       padding: 40px 32px 60px;
       max-width: 1280px;
@@ -682,6 +700,7 @@
         <span class="backup-icon">⬇ Backup JSON</span>
         <span class="backup-spinner"></span>
       </button>
+      <button type="button" class="btn-settings" id="btnSettings">⚙ Configurações</button>
       <button class="btn-logout" id="btnLogout">Sair</button>
     </div>
   </header>
@@ -1336,11 +1355,35 @@
   </main>
 </div>
 
+
+<!-- Configurações do Hub: operação irreversível, não executada ao abrir a tela -->
+<div class="settings-overlay" id="settingsOverlay" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+  <section class="settings-panel">
+    <button type="button" class="settings-close" id="settingsClose" aria-label="Fechar configurações">×</button>
+    <h2 id="settingsTitle">Configurações do Hub</h2>
+    <p>Manutenção e administração dos dados cadastrados.</p>
+    <section class="danger-zone" id="dangerZone" hidden>
+      <h3>Reset total — apagar informações</h3>
+      <p><strong>Atenção:</strong> exclui permanentemente todos os registros do Firebase Realtime Database deste projeto, incluindo colaboradores, permissões, históricos, cadastros e registros de todos os módulos. Também limpa dados locais deste navegador após a exclusão.</p>
+      <p>Não exclui os arquivos do Hub, contas do Firebase Authentication, arquivos do Firebase Storage ou informações armazenadas em outros navegadores. Esses itens precisam ser tratados separadamente para um reset integral da infraestrutura.</p>
+      <p><strong>Antes de continuar:</strong> use o botão “Backup JSON” no cabeçalho e guarde o arquivo em local seguro.</p>
+      <label for="resetPassword">Confirme sua senha de acesso</label>
+      <input id="resetPassword" type="password" autocomplete="current-password" placeholder="Senha da conta administrativa" />
+      <label for="resetPhrase">Digite exatamente <strong>APAGAR TUDO</strong></label>
+      <input id="resetPhrase" type="text" autocomplete="off" placeholder="APAGAR TUDO" />
+      <label><input type="checkbox" id="resetUnderstand" style="width:auto" /> Reconheço que a exclusão é permanente e afeta todos os usuários.</label>
+      <button type="button" id="btnResetAll">Executar reset total</button>
+      <div class="reset-status" id="resetStatus" role="status" aria-live="polite"></div>
+    </section>
+    <p id="settingsRestricted" hidden>Reset total disponível somente para administradores explicitamente autorizados no cadastro de colaboradores (perfil <code>admin</code> ou <code>administrador</code>). Essa validação não substitui as regras de segurança do Firebase.</p>
+  </section>
+</div>
+
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-  import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut }
+  import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut, EmailAuthProvider, reauthenticateWithCredential }
     from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-  import { getDatabase, ref, get }
+  import { getDatabase, ref, get, remove }
     from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
   const firebaseConfig = {
@@ -1356,6 +1399,75 @@
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
   const db = getDatabase(app);
+
+  const settingsOverlay = document.getElementById('settingsOverlay');
+  const dangerZone = document.getElementById('dangerZone');
+  const settingsRestricted = document.getElementById('settingsRestricted');
+  let resetAdmin = false;
+  document.getElementById('btnSettings').addEventListener('click', async () => {
+    settingsOverlay.classList.add('open');
+    dangerZone.hidden = true;
+    settingsRestricted.hidden = false;
+    resetAdmin = false;
+    document.getElementById('resetStatus').textContent = '';
+    const user = auth.currentUser;
+    if (!user) return;
+    try {
+      const snap = await get(ref(db, 'colaboradores/' + user.uid));
+      const info = snap.val() || {};
+      const perfil = String(info.perfil || info.role || info.tipo || '').toLowerCase();
+      resetAdmin = info.status === 'ativo' && (perfil === 'admin' || perfil === 'administrador' || info.isAdmin === true);
+      dangerZone.hidden = !resetAdmin;
+      settingsRestricted.hidden = resetAdmin;
+    } catch(err) {
+      console.error('Não foi possível verificar o perfil administrativo.', err);
+    }
+  });
+  document.getElementById('settingsClose').addEventListener('click', () => settingsOverlay.classList.remove('open'));
+  settingsOverlay.addEventListener('click', e => { if (e.target === settingsOverlay) settingsOverlay.classList.remove('open'); });
+
+  document.getElementById('btnResetAll').addEventListener('click', async () => {
+    const button = document.getElementById('btnResetAll');
+    const status = document.getElementById('resetStatus');
+    const user = auth.currentUser;
+    const password = document.getElementById('resetPassword').value;
+    if (!resetAdmin || !user?.email) return;
+    if (!password || document.getElementById('resetPhrase').value !== 'APAGAR TUDO' || !document.getElementById('resetUnderstand').checked) {
+      status.textContent = 'Informe a senha, digite APAGAR TUDO e marque a confirmação.';
+      return;
+    }
+    if (!window.confirm('ÚLTIMA CONFIRMAÇÃO: excluir permanentemente TODOS os dados do Realtime Database para TODOS os usuários?')) return;
+    button.disabled = true;
+    try {
+      await reauthenticateWithCredential(user, EmailAuthProvider.credential(user.email, password));
+      // Confere novamente após reautenticar, imediatamente antes da remoção.
+      const authSnap = await get(ref(db, 'colaboradores/' + user.uid));
+      const info = authSnap.val() || {};
+      const perfil = String(info.perfil || info.role || info.tipo || '').toLowerCase();
+      if (!(info.status === 'ativo' && (perfil === 'admin' || perfil === 'administrador' || info.isAdmin === true))) throw new Error('Perfil administrativo não autorizado.');
+      status.textContent = 'Excluindo dados compartilhados…';
+      await remove(ref(db, '/'));
+      status.textContent = 'Banco compartilhado apagado. Limpando dados locais deste navegador…';
+      try { localStorage.clear(); sessionStorage.clear(); } catch(err) { console.warn('Falha ao limpar storage local', err); }
+      if (indexedDB.databases) {
+        try {
+          const databases = await indexedDB.databases();
+          await Promise.all((databases || []).filter(x => x.name && !/^firebase/i.test(x.name)).map(x => new Promise(resolve => {
+            const request = indexedDB.deleteDatabase(x.name);
+            request.onsuccess = resolve;
+            request.onerror = resolve;
+            request.onblocked = resolve;
+          })));
+        } catch(err) { console.warn('Não foi possível limpar alguns bancos locais.', err); }
+      }
+      status.textContent = 'Reset do Realtime Database concluído. Dados locais limpos quando permitido pelo navegador. Saindo…';
+      await signOut(auth);
+      window.location.reload();
+    } catch(err) {
+      console.error('Reset não concluído:', err);
+      status.textContent = 'Reset não concluído: ' + (err.code === 'auth/invalid-credential' ? 'senha incorreta.' : err.message || String(err));
+    } finally { button.disabled = false; }
+  });
 
   const loginScreen = document.getElementById('loginScreen');
   const dashboard   = document.getElementById('dashboard');
