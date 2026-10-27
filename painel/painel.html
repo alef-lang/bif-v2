@@ -7288,7 +7288,7 @@ function relatorioHtml(){
   if(S.empresas.some(e => !safe(e.atividade).trim()) && !atList.includes('Sem atividade informada')) atList.push('Sem atividade informada');
   const atOpts = atList.sort((a,b)=>a.localeCompare(b,'pt-BR')).map(a=>`<option value="${esc(a)}">${esc(a)}</option>`).join('');
   const colabOpts = getAllColaboradores().map(c=>`<option value="${esc(c)}">${esc(c)}</option>`).join('');
-  return `<div class="rel-options">
+  return `<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px"><button type="button" onclick="document.getElementById('relTipo').value='produtor_rural';renderRelatorioTabela()" style="background:#84692c;color:white;border:0;border-radius:8px;padding:9px 13px;cursor:pointer;font-weight:600">🌾 Relatório de Produtores Rurais</button><span style="font-size:12px;opacity:.75">Também disponível em Categoria especial no seletor abaixo.</span></div><div class="rel-options">
     <select id="relTipo" onchange="renderRelatorioTabela()">
       <optgroup label="Operacional">
         <option value="movimento">📌 Empresas com movimento</option>

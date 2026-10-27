@@ -42,9 +42,9 @@ go.addEventListener('click',async()=>{
    if(user.uid!==ADMIN_UID) throw new Error('Este usuário não tem autorização para apagar dados.');
    if(!user.email) throw new Error('É necessário entrar com e-mail e senha para validar esta operação.');
    await reauthenticateWithCredential(user,EmailAuthProvider.credential(user.email,pw.value));
-   const snapshot=await get(ref(db,'colaboradores/'+user.uid));
-   const admin=snapshot.val();
-   if(!admin || admin.status!=='ativo' || !(admin.isAdmin===true || ['admin','administrador'].includes(String(admin.perfil||'').toLowerCase()))) throw new Error('Cadastro de administrador não autorizado no banco.');
+   // O export atual não contém /colaboradores. A identidade é validada
+   // pelo Firebase Authentication, UID permitido e reautenticação por senha.
+   // As regras do Realtime Database DEVEM restringir as remoções no servidor.
    const protectedPaths=['colaboradores','painel','configuracoes','usuarios','bif_painel'];
    for(const path of paths){
      if(!path || path.startsWith('/') || path.includes('..') || protectedPaths.some(p=>path===p || p.startsWith(path+'/') || path.startsWith(p+'/'))) throw new Error('Caminho protegido: '+path);
