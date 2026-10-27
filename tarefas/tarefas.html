@@ -3586,7 +3586,8 @@ function printTaskDetails(id){
       ${t.desc?`<div class="section"><div class="section-title">Descrição / contexto</div><div class="desc">${t.desc}</div></div>`:''}
       <div class="section"><div class="section-title">Subtarefas</div>${subsHtml}</div>
       ${attachHtml?`<div class="section"><div class="section-title">Anexos</div>${attachHtml}</div>`:''}
-    </body></html>`);
+    <script type="module" data-reset-module="tarefas/tarefas.html" src="../reset-modulos/reset.js"></script>
+</body></html>`);
   win.document.close();
   win.onload=()=>{win.focus();win.print();};
 }

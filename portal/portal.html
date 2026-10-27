@@ -1214,7 +1214,8 @@
     rows.forEach(r => {
       html += `<tr><td>${r.data}</td><td>${r.assunto}</td><td>${r.origem||''}</td><td>${(r.cats||[]).join(', ')}</td><td>${(r.conteudo||'').replace(/\n/g,'<br/>')}</td><td>${(r.ferramentas||'').replace(/\n/g,'<br/>')}</td><td>${(r.statusRetencao||'').replace(/\n/g,'<br/>')}</td><td>${(r.observacoes||'').replace(/\n/g,'<br/>')}</td></tr>`;
     });
-    html += '</tbody></table></body></html>';
+    html += '</tbody></table><script type="module" data-reset-module="portal/portal.html" src="../reset-modulos/reset.js"></script>
+</body></html>';
     const blob = new Blob(['\ufeff', html], { type: 'application/msword' });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);

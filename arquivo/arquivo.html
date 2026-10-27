@@ -239,5 +239,6 @@ async function loadCompanies(){if(!state.firebaseOk||!state.db){useFallback('Fir
 async function init(){state.competencia=localRead().lastCompetencia||currentMonth();bind();try{const app=initializeApp(firebaseConfig);state.db=getDatabase(app);state.firebaseOk=true;await loadCompanies();}catch(e){console.error(e);state.firebaseOk=false;useFallback('Firebase não iniciou');}}
 init();
 </script>
+<script type="module" data-reset-module="arquivo/arquivo.html" src="../reset-modulos/reset.js"></script>
 </body>
 </html>

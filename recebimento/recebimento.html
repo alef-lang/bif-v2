@@ -2458,7 +2458,8 @@ function printRelatorioDocsReceber() {
       Empresas com documentos cadastrados (${comDocs.length})</h2>
     ${comDocs.map(empresaBlock).join('')}
     ${semDocsBlock}
-  </body></html>`;
+  <script type="module" data-reset-module="recebimento/recebimento.html" src="../reset-modulos/reset.js"></script>
+</body></html>`;
 
   const iframe = document.createElement('iframe');
   iframe.style.cssText = 'position:fixed;right:0;bottom:0;width:0;height:0;border:0';

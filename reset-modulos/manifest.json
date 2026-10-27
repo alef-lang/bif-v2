@@ -1,0 +1,62 @@
+{
+  "antena/antena-fiscal.html": [
+    "bif/antenaFiscal"
+  ],
+  "apoio/apoio.html": [
+    "apoio_escrituracao"
+  ],
+  "atendimento/atendimento.html": [
+    "atendimento_cliente"
+  ],
+  "certificados.html": [
+    "bif_certificados"
+  ],
+  "controleguias/controle-guias.html": [
+    "guias"
+  ],
+  "ferramentas/calculadora-simples.html": [
+    "calculadora_simples"
+  ],
+  "indicadores/controle_ciap.html": [
+    "bif_controle_ciap"
+  ],
+  "indicadores/monitor_reforma_tributaria.html": [
+    "bif_monitor_reforma/documentos"
+  ],
+  "kanban/kanban.html": [
+    "bif_criatividade/alef"
+  ],
+  "leitura-org/leitura-organizacional-bif.html": [
+    "leitura_organizacional"
+  ],
+  "obrigacoes/obrigacoes.html": [
+    "obrigacoes",
+    "obrigacoes_anexos"
+  ],
+  "portal/portal.html": [
+    "pop_hub/registros"
+  ],
+  "procedimentos/pop.html": [
+    "pop_hub/registros"
+  ],
+  "processos/portal_pedido_emissao_nota.html": [
+    "bif_pedidos_emissao_nota"
+  ],
+  "recebimento/recebimento.html": [
+    "bif_controle_recebimento_movimentos",
+    "bif_recebimento_sem_recebimento",
+    "bif_recebimento_briefing_docs"
+  ],
+  "tarefas/tarefas.html": [
+    "bif_tarefas_fiscal"
+  ],
+  "tarefas/mapa.html": [
+    "bif_tarefas_mapa_fiscal"
+  ],
+  "controladoria/saneamento_ncm.html": [
+    "bif_saneamento_ncm_v1"
+  ],
+  "arquivo/arquivo.html": [
+    "bif_gestao_arquivo/alef"
+  ]
+}
