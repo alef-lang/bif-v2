@@ -1,65 +1,110 @@
 {
-  "antena/antena-fiscal.html": [
-    "bif/antenaFiscal"
-  ],
-  "apoio/apoio.html": [
-    "apoio_escrituracao"
-  ],
-  "arquivo/arquivo.html": [
-    "bif_gestao_arquivo/alef"
-  ],
-  "atendimento/atendimento.html": [
-    "atendimento_cliente"
-  ],
-  "certificados.html": [
-    "bif_certificados"
-  ],
-  "controladoria/saneamento_ncm.html": [
-    "bif_saneamento_ncm_v1"
-  ],
-  "controleguias/controle-guias.html": [
-    "guias"
-  ],
-  "documentos/documentos.html": [
-    "documentos"
-  ],
-  "equipes/equipes.html": [
-    "gestao_equipes"
-  ],
-  "ferramentas/calculadora-simples.html": [
-    "calculadora_simples"
-  ],
-  "indicadores/indicadores-principal-com-sped.html": [
-    "bif_kpi_numeros_v2/dados"
-  ],
-  "kanban/kanban.html": [
-    "bif_criatividade/alef"
-  ],
-  "leitura-org/leitura-organizacional-bif.html": [
-    "leitura_organizacional"
-  ],
-  "manuaisext/manuais.html": [
-    "manuais_ext_docs"
-  ],
-  "obrigacoes/obrigacoes.html": [
-    "obrigacoes",
-    "obrigacoes_anexos"
-  ],
-  "portal/portal.html": [
-    "pop_hub/registros"
-  ],
-  "processos/portal_pedido_emissao_nota.html": [
-    "bif_pedidos_emissao_nota"
-  ],
-  "recebimento/recebimento.html": [
-    "bif_controle_recebimento_movimentos",
-    "bif_recebimento_sem_recebimento",
-    "bif_recebimento_briefing_docs"
-  ],
-  "tarefas/tarefas.html": [
-    "bif_tarefas_fiscal/tasks"
-  ],
-  "tarefas/mapa.html": [
-    "bif_tarefas_mapa_fiscal"
-  ]
+  "firebase": {
+    "tarefas/tarefas.html": [
+      "bif_tarefas_fiscal/tasks"
+    ],
+    "tarefas/mapa.html": [],
+    "apoio/apoio.html": [
+      "apoio_escrituracao"
+    ],
+    "atendimento/atendimento.html": [
+      "atendimento_cliente"
+    ],
+    "controleguias/controle-guias.html": [
+      "guias"
+    ],
+    "cultura-clima/cultura-clima-bif.html": [],
+    "documentos/documentos.html": [
+      "documentos"
+    ],
+    "manuaisext/manuais.html": [
+      "manuais_ext_docs"
+    ],
+    "obrigacoes/obrigacoes.html": [
+      "obrigacoes",
+      "obrigacoes_anexos"
+    ],
+    "portal/portal.html": [
+      "pop_hub/registros"
+    ],
+    "procedimentos/pop.html": [],
+    "ferramentas/calculadora-simples.html": [
+      "calculadora_simples"
+    ],
+    "indicadores/indicadores-principal-com-sped.html": [
+      "bif_kpi_numeros_v2/dados"
+    ],
+    "leitura-org/leitura-organizacional-bif.html": [],
+    "planos/index-planos.html": [],
+    "processos/portal_pedido_emissao_nota.html": [],
+    "recebimento/recebimento.html": [
+      "bif_controle_recebimento_movimentos"
+    ],
+    "arquivo/arquivo.html": [],
+    "kanban/kanban.html": [],
+    "anotacoes/anotacoes.html": [],
+    "painel/painel.html": []
+  },
+  "localStorage": {
+    "tarefas/tarefas.html": [
+      "fiscal_tasks",
+      "fiscal_exp",
+      "fiscal_pts",
+      "fiscal_recovery_flags",
+      "fiscal_last_save",
+      "fiscal_task_draft",
+      "fiscal_cloud_backup_before_priorizacao_v5"
+    ],
+    "tarefas/mapa.html": [
+      "bif_mapa_calendar_view"
+    ],
+    "atendimento/atendimento.html": [
+      "bif_atendimento_cliente_v1"
+    ],
+    "controleguias/controle-guias.html": [
+      "bifGuias"
+    ],
+    "obrigacoes/obrigacoes.html": [
+      "bifObrigacoes"
+    ],
+    "procedimentos/pop.html": [
+      "hub-pop-fiscal-v2"
+    ],
+    "ferramentas/calculadora-simples.html": [
+      "snAliquotaManager.v1"
+    ],
+    "arquivo/arquivo.html": [
+      "bif_gestao_arquivo_alef_v1"
+    ],
+    "kanban/kanban.html": [
+      "bif_criatividade_alef_state_v1"
+    ],
+    "anotacoes/anotacoes.html": [
+      "bif_anotacoes_tdah_v1"
+    ],
+    "recebimento/recebimento.html": [
+      "bif_controle_recebimento_movimentos_v1"
+    ],
+    "processos/portal_pedido_emissao_nota.html": [
+      "pedidoNota_draft_v1"
+    ],
+    "indicadores/monitor_reforma_tributaria.html": [
+      "monitor_reforma_tributaria_v2"
+    ],
+    "indicadores/controle_ciap.html": [
+      "controle_ciap_v1"
+    ],
+    "comunicacao/comunicacao.html": [
+      "bif_comunicacao_modelos_v1"
+    ],
+    "conhecimento/elicitacao.html": [
+      "bif_elicitacao_modules_v1"
+    ],
+    "conhecimento/faq.html": [
+      "bif_faq_base_v1"
+    ],
+    "processos/gestao_implantacao_empresas.html": [
+      "implantacao_empresas_v1"
+    ]
+  }
 }

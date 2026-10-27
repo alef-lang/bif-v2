@@ -605,6 +605,6 @@ function resetData(){if(!confirm('Apagar todas as empresas e configurações sal
 if(!Object.keys(raci).length){stages.forEach(s=>raci[s.id]={R:s.owner,A:s.id==='captacao'?'Liderança comercial':'Coordenação fiscal',C:'',I:''});localStorage.setItem(ROLES_KEY,JSON.stringify(raci))}
 renderDashboard();renderWorkflow();renderProtocolSelect();renderProtocol();fillPersonSelects();
 </script>
-<script defer src="../reset-modulos/visible.js" data-module="processos/gestao_implantacao_empresas.html"></script>
+<script defer src="../reset-modulos/launcher.js" data-module="processos/gestao_implantacao_empresas.html"></script>
 </body>
 </html>

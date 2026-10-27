@@ -1,5 +1,1 @@
-BIF V2 — Reset por módulo v3
-
-Um único botão por página. Mapeamento explícito de caminhos em manifest.json e reset.js. Caminhos de empresas, usuários e configurações não são apagados. O relatório de produtores usa painel/empresas e não pode ser limpo isoladamente. A exclusão depende de Firebase Auth com UID permitido e de regras de segurança no servidor.
-
-IMPORTANTE: backup obrigatório; teste em ambiente de homologação. Operações multi-caminho podem ser parcialmente concluídas em caso de falha. Não há rollback automático. Não altera as regras do Firebase.
+BIF V2 reset v4: remove somente caminhos Firebase e chaves localStorage explicitamente mapeados. Usa atualização multi-localização atômica para exclusões remotas. Reautenticação obrigatória e UID autorizado. NÃO apaga cadastros de empresas, colaboradores, usuários nem configurações. Botão de diagnóstico. Módulos sem caminho independente bloqueados para Firebase. Não muda regras de segurança. Fazer backup e testar em ambiente de homologação. A exclusão local é específica deste navegador e não afeta outros dispositivos. Não há garantia de que o sistema não restaure dados de outra fonte; investigar após teste.
