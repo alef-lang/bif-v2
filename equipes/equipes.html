@@ -185,6 +185,6 @@ window.exportJSON=function(){const blob=new Blob([JSON.stringify(state,null,2)],
 document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='s'){e.preventDefault();saveCloud();showToast('Salvo.')}if(e.key==='Escape'){if($id('delegationModal').classList.contains('open'))closeDelegationModal();if($id('personModal').classList.contains('open'))closePersonModal();}});load();
 })();
 </script>
-<script defer data-module="equipes/equipes.html" data-path="" src="../reset-modulos/visible.js"></script>
+<script defer src="../reset-modulos/visible.js" data-module="equipes/equipes.html"></script>
 </body>
 </html>

@@ -1,3 +1,5 @@
-Versão corrigida: parte do ZIP original, insere o controle no fechamento real do documento e reutiliza a autenticação Firebase padrão. Não remove dados compartilhados nem configurações.
-Requer autenticação por e-mail/senha, UID administrador autorizado e regras de escrita no RTDB. Testar em ambiente de homologação com backup.
-Módulos com caminhos compartilhados não exibem reset para evitar exclusão cruzada.
+BIF V2 — Reset por módulo v3
+
+Um único botão por página. Mapeamento explícito de caminhos em manifest.json e reset.js. Caminhos de empresas, usuários e configurações não são apagados. O relatório de produtores usa painel/empresas e não pode ser limpo isoladamente. A exclusão depende de Firebase Auth com UID permitido e de regras de segurança no servidor.
+
+IMPORTANTE: backup obrigatório; teste em ambiente de homologação. Operações multi-caminho podem ser parcialmente concluídas em caso de falha. Não há rollback automático. Não altera as regras do Firebase.
