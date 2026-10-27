@@ -1,7 +1,3 @@
-RESET POR MÓDULO
-
-Adicionado a 18 páginas com caminhos identificados. Apenas registros dos caminhos explícitos são excluídos. Não há exclusão de usuários, configurações ou empresas compartilhadas.
-
-Exige login Firebase por e-mail/senha, UID administrador autorizado, cadastro colaboradores/UID com perfil admin e status ativo, senha da própria conta e confirmação APAGAR.
-
-IMPORTANTE: as regras do Firebase devem permitir leitura e remoção dos caminhos pelo administrador. Teste primeiro em ambiente de homologação e faça backup. Módulos sem mapeamento seguro não receberam botão. A interface não substitui regras de segurança do servidor.
+Versão corrigida: parte do ZIP original, insere o controle no fechamento real do documento e reutiliza a autenticação Firebase padrão. Não remove dados compartilhados nem configurações.
+Requer autenticação por e-mail/senha, UID administrador autorizado e regras de escrita no RTDB. Testar em ambiente de homologação com backup.
+Módulos com caminhos compartilhados não exibem reset para evitar exclusão cruzada.
